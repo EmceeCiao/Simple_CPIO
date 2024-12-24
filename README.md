@@ -37,7 +37,15 @@ Usage: bin/transplant -s|-d [-c] [-p DIR]
 ```
 ## Building and Testing   
 
-Simple_CPIO can be built using the provided make files and running ```make clean && make all```. 
+Simple_CPIO can be built using the provided make files and running ```make clean && make all```.  
+
+The rsrc directory was used for testing the program as it was being built, and many similar commands like the following were run: 
+
+```
+$ bin/transplant -s -p rsrc/testdir > outfile
+
+$ bin/transplant -d -p test_out < outfile
+```
 
 The testing framework used stood [criterion](https://github.com/Snaipe/Criterion), so this must be installed before attempting to run the tests using: 
 
