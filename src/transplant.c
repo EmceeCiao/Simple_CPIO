@@ -95,22 +95,22 @@ void print_size(long size){
         auto_shift -= 8; 
     }
 }  
-// //Below two were made for both understanding and in case the value mattered
-// void print_st_size(off_t size){ 
-//     int auto_shift = 56; 
-//     for(int i = 0; i < 8; i++){ 
-//         fputc((size >> auto_shift & 0xFF),stdout); 
-//         auto_shift -= 8; 
-//     }
-// } 
+//Below two were made for both understanding and in case the value mattered
+void print_st_size(off_t size){ 
+    int auto_shift = 56; 
+    for(int i = 0; i < 8; i++){ 
+        fputc((size >> auto_shift & 0xFF),stdout); 
+        auto_shift -= 8; 
+    }
+} 
 
-// void print_st_mode(mode_t mode){  
-//     int auto_shift = 24; 
-//     for(int i = 0; i < 4; i++){ 
-//         fputc((mode >> auto_shift & 0xFF), stdout); 
-//         auto_shift -= 8; 
-// }  
-// } 
+void print_st_mode(mode_t mode){  
+    int auto_shift = 24; 
+    for(int i = 0; i < 4; i++){ 
+        fputc((mode >> auto_shift & 0xFF), stdout); 
+        auto_shift -= 8; 
+}  
+} 
 void print_st_fields(mode_t mode, off_t size){ 
     int auto_shift = 24; 
     for(int i = 0; i < 4; i++){ 
@@ -312,68 +312,7 @@ int deserialize_directory(int depth) {
     }
     return 0;
 
-//     verify_magic(); 
-//     int type = fgetc(stdin);
-//     if (type != 0x02){return -1;}
-//     if(verify_depth(depth) == -1){return -1;} 
-//     long size = verify_size();   
-//     int control = 1;  
-//     while(control){
-//         verify_magic(); 
-//         type = fgetc(stdin);
-//         if (type != 0x03 && type != 0x04) return -1;
-//         verify_depth(depth); 
 
-//         size = 0; 
-//         size = verify_size(); 
-
-//         if (type == 0x03){ 
-//             break;
-//         }
-//         mode_t mode = 0;
-//         long meta_data_size = 0;
-
-//         mode = verify_mode(); 
-//         meta_data_size = verify_size();  
-//         if(meta_data_size == -100000){ 
-//             return -1;
-//         } 
-//         name_buf_clear();
-//         name_buf_init(size - 28);   
-//         // printf("%s\n",name_buf);  
-//         struct stat stat_buf;  
-//         if (S_ISDIR(mode)) { 
-//             if (path_push(name_buf) == -1) return -1; 
-//             if (stat(path_buf, &stat_buf) == 0){ 
-//                 if(deserialize_directory(depth + 1) == -1) return -1;  
-//                 if(path_pop()); 
-//             }else{  
-//             if (mkdir(path_buf, 0700) == -1) { 
-//                 fprintf(stderr, "Making Directory Failed"); 
-//                 return -1;}            
-//             if (deserialize_directory(depth + 1) == -1) { 
-//                 fprintf(stderr, "Something must have gone wrong with deserialize_directory"); 
-//                 return -1;}
-//             if (chmod(path_buf, mode & 0777) == -1) { 
-//                 fprintf(stderr, "Something went wrong with changing permissions back on a directory"); 
-//                 return -1;}
-//             if (path_pop() == -1) { 
-//                 fprintf(stderr, "Something went wrong with popping"); 
-//                 return -1;}
-// }
-//             // if (mkdir(path_buf, 0700) == -1) return -1;            
-//             // if (deserialize_directory(depth + 1) == -1) return -1;
-//             // if (chmod(path_buf, mode & 0777) == -1) return -1; 
-//             // if (path_pop() == -1) return -1;
-//         } else if (S_ISREG(mode)) {
-//             if (path_push(name_buf) == -1) { 
-//                 return -1;}
-//             if (deserialize_file(depth) == -1) (return -1;) 
-//         } else {
-//             return -1; 
-//         }
-//     }
-//     return 0;
 }
 
 /*
